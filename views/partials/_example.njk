@@ -96,7 +96,12 @@
           </p>
           {% for table in macroOptions %}
             <table class="govuk-table app-options__table" id="options-{{ exampleId }}--{{ table.id }}">
-              <caption class="govuk-table__caption govuk-heading-m {% if table.id == 'primary' %} govuk-visually-hidden{% endif %}">{{ table.name | safe }}</caption>
+              <caption class="govuk-table__caption{% if table.id == 'primary' %} govuk-visually-hidden{% endif %}">
+                <h3 class="govuk-heading-m">{{ table.name | safe }}</h3>
+                {% if table.description %}
+                <p class="govuk-body">{{ table.description | safe }}</p>
+                {% endif %}
+              </caption>
               <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                   <th class="govuk-table__header app-options__limit-table-cell" scope="col">Name</th>
