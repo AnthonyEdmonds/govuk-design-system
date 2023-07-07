@@ -106,6 +106,8 @@
               </thead>
               <tbody class="govuk-table__body">
                 {% for option in table.options -%}
+                  {# Option name only, without parent prefix -#}
+                  {% set optionName = option.name.split(".") | last -%}
                   <tr class="govuk-table__row">
                     <th class="govuk-table__header" scope="row">{{ option.name | safe }}</th>
                     <td class="govuk-table__cell">{{ option.type }}</td>
@@ -117,13 +119,13 @@
                       {% if (option.isComponent) -%}
                         {# Create separate table data for components that are hidden in the Design System -#}
                         {% if ["hint", "label"].includes(option.slug) %}
-                          See <a href="#options-{{ exampleId }}--{{ option.slug }}">{{ option.name | safe }}</a>.
+                          See <a href="#options-{{ exampleId }}--{{ option.slug }}">{{ optionName | safe }}</a>.
                         {% else %}
-                          See <a href="/components/{{ option.slug }}/#options-{{ option.slug }}-example">{{ option.name | safe }}</a>.
+                          See <a href="/components/{{ option.slug }}/#options-{{ option.slug }}-example">{{ optionName | safe }}</a>.
                         {% endif %}
                       {% endif %}
                       {% if (option.params) %}
-                        See <a href="#options-{{ exampleId }}--{{ option.slug }}">{{ option.name | safe }}</a>.
+                        See <a href="#options-{{ exampleId }}--{{ option.slug }}">{{ optionName | safe }}</a>.
                       {% endif -%}
                     </td>
                   </tr>
