@@ -1,22 +1,27 @@
 import iFrameResize from 'iframe-resizer/js/iframeResizer.js'
 
+/**
+ * Example component
+ *
+ * This allows automatic resizing of the iFrame pages contained within Example
+ * template wrappers.
+ *
+ * @param {Element} $module - HTML element to use for example
+ */
 function Example ($module) {
   this.$module = $module
 }
 
 Example.prototype.init = function () {
-  var $module = this.$module
-  if (!$module) {
+  if (!this.$module) {
     return
   }
-  this.resize()
+  this.$module.addEventListener('load', this.initIFrameResizer.bind(this))
 }
-Example.prototype.resize = function () {
-  var $module = this.$module
 
+Example.prototype.initIFrameResizer = function () {
   try {
-    // Example iframe; set the height equal to the body height
-    iFrameResize({ scrolling: 'auto' }, $module)
+    iFrameResize({ scrolling: 'omit' }, this.$module)
   } catch (err) {
     if (err) {
       console.error(err.message)
